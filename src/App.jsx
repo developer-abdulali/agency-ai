@@ -1,10 +1,9 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../src/pages/Home";
 import Success from "../src/pages/Success";
 import Error from "../src/pages/Error";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
+import Footer from "./components/Footer/Footer";
 const App = () => {
   return (
     <BrowserRouter>
@@ -16,6 +15,7 @@ const App = () => {
         />
         <Route path="/*" element={<Error />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

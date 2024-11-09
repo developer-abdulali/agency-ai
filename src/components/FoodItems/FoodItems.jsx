@@ -1,4 +1,3 @@
-import React from "react";
 import FoodCard from "../FoodCard/FoodCard";
 import FoodData from "../../Data/FoodData";
 import toast, { Toaster } from "react-hot-toast";
@@ -8,12 +7,10 @@ const FoodItems = () => {
   const handleToast = (name) => toast.success(`Added ${name} to cart`);
   const category = useSelector((state) => state.category.category);
   const search = useSelector((state) => state.search.search);
-  console.log(search);
   return (
     <>
       <Toaster position="top-center" reverseOrder="false" />
-      <div className="flex flex-wrap gap-10 justify-center lg:justify-start mx-6 my-10">
-        {/*filtering and maping all food data */}
+      <div className="flex flex-row max-phone:flex-col flex-wrap gap-8 justify-center lg:justify-start mx-6 my-10">
         {FoodData.filter((food) => {
           if (category === "All") {
             return food.name
