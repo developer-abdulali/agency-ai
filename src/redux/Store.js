@@ -16,7 +16,7 @@ const persistedReducer = persistReducer(
     cart: CartSlice,
     category: CategorySlice,
     search: SearchSlice,
-  })
+  }),
 );
 
 const Store = configureStore({

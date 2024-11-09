@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Lexend", serif;
+}
+
+body {
+  @apply bg-secondary-100 dark:bg-secondary-950 text-gray-900 dark:text-gray-200;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.search {
+  @apply p-3 placeholder:text-gray-500 focus:placeholder:text-gray-400 bg-secondary-300 dark:bg-secondary-900 border border-secondary-400 focus:bg-secondary-200 dark:focus:bg-secondary-700 max-sm:mx-auto max-sm:w-[16rem] lg:w-[25vw] rounded-lg outline-none;
+}
+
+.btn {
+  @apply px-3 py-2 font-bold rounded-lg bg-secondary-200 hover:bg-primary-500 dark:bg-secondary-800;
+}
+
+.sel {
+  @apply bg-primary-400;
+}
+
+.btn2 {
+  @apply px-2 py-1 rounded-md bg-primary-400 hover:bg-primary-500 dark:text-gray-900;
+}
+
+.card {
+  @apply bg-secondary-200 dark:bg-secondary-900 font-bold w-[250px] p-5 flex flex-col rounded-lg gap-2;
+}
+
+.ico {
+  @apply text-gray-100 cursor-pointer hover:text-primary-500 hover:underline duration-200;
+}

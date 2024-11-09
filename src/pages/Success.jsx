@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 
@@ -14,12 +14,13 @@ const Success = () => {
       {loading ? (
         <PropagateLoader color="#36d7b7" />
       ) : (
-        <div className="">
+        <div>
           <h2 className="text-3xl font-semibold mb-4">Order Successfull!</h2>
-          <p className="mb-4">
-            Your order has been successfully placed.
-          </p>
-          <Link to="/" className="flex items-center justify-center hover:underline">
+          <p className="mb-4">Your order has been successfully placed.</p>
+          <Link
+            to="/"
+            className="flex items-center justify-center hover:underline"
+          >
             Go Back
           </Link>
         </div>

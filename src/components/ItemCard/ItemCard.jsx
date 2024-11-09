@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
@@ -30,18 +30,26 @@ const ItemCard = ({ id, name, price, qty, img }) => {
           <div className="flex items-center justify-center gap-2 absolute right-7">
             <AiOutlineMinus
               onClick={() => qty > 1 && dispatch(decreamentQty({ id }))}
-              className="border-2 border-gray-600 p-1 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md text-xl transition-all ease-linear cursor-pointer"
+              className="border-2 border-gray-600 p-1 text-gray-600 hover:text-gray-100 hover:bg-green-500 hover:border-none rounded-md text-xl transition-all ease-linear cursor-pointer"
             />
             <span>{qty}</span>
             <AiOutlinePlus
               onClick={() => qty >= 1 && dispatch(increamentQty({ id }))}
-              className="border-2 border-gray-600 p-1 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md text-xl transition-all ease-linear cursor-pointer"
+              className="border-2 border-gray-600 p-1 text-gray-600 hover:text-gray-100 hover:bg-green-500 hover:border-none rounded-md text-xl transition-all ease-linear cursor-pointer"
             />
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+ItemCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  qty: PropTypes.number.isRequired,
+  img: PropTypes.string.isRequired,
 };
 
 export default ItemCard;
