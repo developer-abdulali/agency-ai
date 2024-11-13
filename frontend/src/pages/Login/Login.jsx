@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PasswordInput from "../../components/Input/PasswordInput/PasswordInput";
+import { validateEmail } from "../../utils/helper";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,20 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter a password");
+      return;
+    }
+
+    setError("");
+
+    // Login api
   };
 
   return (
