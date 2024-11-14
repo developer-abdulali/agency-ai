@@ -2,6 +2,7 @@ import { MdAdd } from "react-icons/md";
 import NoteCard from "../../components/NoteCard/NoteCard";
 import { useState } from "react";
 import Modal from "react-modal";
+import AddEditNotes from "./AddEditNotes";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -12,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="container mx-auto">
+      <section className="container mx-auto px-4">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8 max-md:m-5">
           <NoteCard
             title={"Wake Up at 6 a.m."}
@@ -77,7 +78,13 @@ const Home = () => {
         contentLabel="Add Note"
         className="w-[40%] max-md:w-[60%] max-sm:w-[70%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-scroll"
       >
-        {/* <AddEditNotes /> */}
+        <AddEditNotes
+          onClose={() =>
+            setOpenAddEditModal({ isShown: false, type: "add", data: null })
+          }
+          noteData={openAddEditModal.data}
+          type={openAddEditModal.type}
+        />
       </Modal>
     </>
   );

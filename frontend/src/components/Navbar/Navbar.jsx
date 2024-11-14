@@ -1,15 +1,13 @@
 import { useState } from "react";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import SearchBar from "../SearchBar/SearchBar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = () => {
-    // Implement search logic here
-  };
+  const handleSearch = () => {};
 
   const onClearSearch = () => {
     setSearchQuery("");
@@ -20,12 +18,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white flex items-center justify-between drop-shadow">
+    <nav className="bg-white flex items-center justify-between drop-shadow px-4">
       {/* logo */}
-      <h2 className="text-xl font-medium py-3 text-black">
-        <span className="text-slate-600">Good</span>
-        <span className="text-slate-900">Notes</span>
-      </h2>
+      <Link to="/">
+        <h2 className="text-xl font-medium py-3 text-black">
+          <span className="text-slate-600">Good</span>
+          <span className="text-slate-900">Notes</span>
+        </h2>
+      </Link>
 
       {/* searchbar */}
       <SearchBar
