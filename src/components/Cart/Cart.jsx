@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoMdClose } from "react-icons/io";
+import { SlClose } from "react-icons/sl";
 import ItemCard from "../ItemCard/ItemCard";
 import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
@@ -21,9 +21,9 @@ const Cart = () => {
       >
         <div className="flex justify-between items-center my-2">
           <span className="text-xl font-bold">My Orders</span>
-          <IoMdClose
+          <SlClose
             onClick={() => setActiveCart(!activeCart)}
-            className="border-2 border-gray-600 font-bold p-1 text-xl rounded-md hover:text-primary hover:border-primary cursor-pointer"
+            className="border-2 border-secondary-500 dark:border-secondary-600 text-gray-800 dark:text-gray-300 font-bold p-1 text-2xl rounded-md hover:text-gray-900 darK:text-gray-200 hover:border-secondary-600 dark:hover:border-secondary-500 cursor-pointer"
           />
         </div>
         {cartItems.length ? (
@@ -57,7 +57,7 @@ const Cart = () => {
       </div>
       <FaShoppingCart
         onClick={() => setActiveCart(!activeCart)}
-        className={`rounded-full bg-secondary-200 text-secondary-900 dark:bg-secondary-700 dark:text-secondary-100 text-5xl shadow-md p-3 fixed bottom-4 right-4 cursor-pointer hover:bg-primary duration-300 ${totalQty > 0 && "animate-bounce delay-500 transition-all"}`}
+        className={`rounded-full bg-secondary-200 text-secondary-900 dark:bg-secondary-700 dark:text-secondary-100 text-5xl shadow-md p-3 fixed bottom-4 right-4 cursor-pointer hover:bg-secondary-300 dark:hover:bg-secondary-600 duration-300 ${totalQty > 0 && "animate-bounce delay-500 transition-all"}`}
       />
     </>
   );

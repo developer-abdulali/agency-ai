@@ -10,7 +10,7 @@ const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
       <img
         src={img}
         alt="burger pic"
-        className="w-auto h-[130px] hover:scale-110 cursor-grab transition-all duration-500 ease-in-out"
+        className="w-auto h-[125px] hover:scale-110 cursor-grab transition-all duration-500 ease-in-out"
       />
       <div className="text-sm flex items-center justify-between">
         <h2>{name}</h2>

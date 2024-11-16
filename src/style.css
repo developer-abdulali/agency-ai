@@ -14,7 +14,7 @@ body {
 }
 
 .search {
-  @apply p-3 placeholder:text-gray-500 focus:placeholder:text-gray-400 bg-secondary-300 dark:bg-secondary-900 border border-secondary-400 focus:bg-secondary-200 dark:focus:bg-secondary-700 max-sm:mx-auto max-sm:w-[16rem] lg:w-[25vw] rounded-lg outline-none;
+  @apply p-3 placeholder:text-gray-500 focus:placeholder:text-gray-400 bg-secondary-300 dark:bg-secondary-900 border border-secondary-400 focus:bg-secondary-200 dark:focus:bg-secondary-700 max-sm:mx-auto max-sm:w-[16rem] lg:w-[25vw] rounded-xl outline-none;
 }
 
 .btn {
@@ -30,7 +30,7 @@ body {
 }
 
 .card {
-  @apply bg-secondary-200 dark:bg-secondary-900 font-bold w-[250px] p-5 flex flex-col rounded-lg gap-2;
+  @apply bg-secondary-200 dark:bg-secondary-900 font-bold w-60 p-5 flex flex-col rounded-lg gap-2;
 }
 
 .ico {
