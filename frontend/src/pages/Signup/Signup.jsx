@@ -67,47 +67,69 @@ const Signup = () => {
     if (currentUser) {
       navigate("/");
     }
-  });
+  }, [currentUser, navigate]);
 
   return (
-    <div className="flex items-center justify-center mt-28">
-      <div className="w-96 border rounded bg-white px-7 py-10">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-lg px-8 py-10">
         <form onSubmit={handleSignup}>
-          <h4 className="text-2xl mb-7">Sign Up</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+            Sign Up
+          </h4>
 
-          <input
-            type="text"
-            placeholder="Name"
-            className="input-box"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your name"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-          <input
-            type="text"
-            placeholder="Email"
-            className="input-box"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email Address
+            </label>
+            <input
+              type="text"
+              id="email"
+              placeholder="Enter your email"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-          <PasswordInput
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="mb-4">
+            <PasswordInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-          {error && <p className="text-red-500 text-sm pb-1">{error}</p>}
+          {error && <p className="text-red-500 text-sm pb-2">{error}</p>}
 
-          <button type="submit" className="btn-primary">
-            SIGNUP
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Signup
           </button>
 
-          <p className="text-sm text-center mt-4">
+          <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
-            <Link
-              to={"/login"}
-              className="font-medium text-[#2B85FF] underline"
-            >
+            <Link to="/login" className="text-blue-600 font-medium underline">
               Login
             </Link>
           </p>

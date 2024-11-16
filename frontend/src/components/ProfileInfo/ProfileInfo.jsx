@@ -1,23 +1,32 @@
+import { LogOut } from "lucide-react";
 import { getInitials } from "../../utils/helper";
 
 const ProfileInfo = ({ userInfo, onLogout }) => {
   return (
-    <section className="flex items-center gap-3">
-      <div className="w-12 h-12 flex items-center justify-center rounded-full text-slate-950 bg-slate-100 font-medium">
-        {getInitials(userInfo?.username)}
-      </div>
+    <div className="border-t border-gray-200">
+      <div className="px-2 pt-2 pb-3 space-y-1">
+        {userInfo && (
+          <div className="flex flex-col md:flex-row md:items-center ">
+            <div className="flex items-center space-x-3 px-3 py-2">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full text-slate-950 bg-slate-100 font-medium">
+                {getInitials(userInfo?.username)}
+              </div>
 
-      <div>
-        <p className="textsm font-medium">{userInfo?.username}</p>
+              <span className="text-sm font-medium text-gray-700">
+                {userInfo.username}
+              </span>
+            </div>
+            <button
+              onClick={onLogout}
+              className="flex items-center space-x-3 w-full px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
+          </div>
+        )}
       </div>
-
-      <button
-        onClick={onLogout}
-        className="text-sm bg-red-500 p-1 rounded-md text-white hover:opacity-80"
-      >
-        Logout
-      </button>
-    </section>
+    </div>
   );
 };
 export default ProfileInfo;
