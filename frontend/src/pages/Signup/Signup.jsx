@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux"
 import axios from "axios";
 import { toast } from "react-toastify";
 import PasswordInput from "../../components/Input/PasswordInput/PasswordInput";
 import { validateEmail } from "../../utils/helper";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // const dispatch = useDispatch()
+  const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -20,18 +20,54 @@ const Signup = () => {
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address");
+      toast.error("Please enter a valid email address");
       return;
     }
 
     if (!password) {
       setError("Please enter a password");
+      toast.error("Please enter a password");
       return;
     }
 
     setError("");
 
-    // Signup api
+    // Signup API
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        {
+          username: name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      if (!res.data.success) {
+        setError(res.data.message);
+        toast.error(res.data.message || "Signup failed");
+        return;
+      }
+
+      // If signup is successful
+      toast.success("Signup successful");
+      navigate("/login");
+    } catch (error) {
+      // Handle error response
+      const errorMessage =
+        error.response?.data?.message || "An error occurred during signup";
+      setError(errorMessage);
+      toast.error(errorMessage);
+    }
   };
+
+  // Redirect to home page if user is already logged in
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="flex items-center justify-center mt-28">

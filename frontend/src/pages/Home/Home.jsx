@@ -1,15 +1,30 @@
 import { MdAdd } from "react-icons/md";
 import NoteCard from "../../components/NoteCard/NoteCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import AddEditNotes from "./AddEditNotes";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { currentUser, loading, errorDispatch } = useSelector(
+    (state) => state.user
+  );
+  const [userInfo, setUserInfo] = useState(null);
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
     type: "add",
     data: null,
   });
+
+  useEffect(() => {
+    if (currentUser === null || !currentUser) {
+      navigate("/login");
+    } else {
+      setUserInfo(currentUser?.user);
+    }
+  }, [currentUser]);
 
   return (
     <>

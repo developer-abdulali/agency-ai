@@ -2,8 +2,16 @@ import { useState } from "react";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  signOutFailure,
+  signOutStart,
+  signOutSuccess,
+} from "../../redux/user/userSlice";
+import axios from "axios";
 
-const Navbar = () => {
+const Navbar = ({ userInfo }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -13,9 +21,45 @@ const Navbar = () => {
     setSearchQuery("");
   };
 
-  const onLogout = () => {
-    navigate("/login");
+  const onLogout = async () => {
+    try {
+      dispatch(signOutStart());
+
+      const res = await axios.get("http://localhost:3000/api/auth/signout", {
+        withCredentials: true,
+      });
+
+      if (!res.data.success) {
+        dispatch(signOutFailure(res.data.message));
+        return;
+      }
+
+      dispatch(signOutSuccess());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      dispatch(signOutFailure(error.response?.data?.message || error.message));
+    }
   };
+
+  // const onLogout = async () => {
+  //   try {
+  //     dispatch(signOutStart());
+
+  //     const res = axios.get("http://localhost:3000/api/auth/signout", {
+  //       withCredentials: true,
+  //     });
+  //     if (res.data.success === false) {
+  //       dispatch(signOutFailure(res.data.message));
+  //     }
+
+  //     dispatch(signOutSuccess());
+
+  //     navigate("/login");
+  //   } catch (error) {
+  //     dispatch(signOutFailure(error.message));
+  //   }
+  // };
 
   return (
     <nav className="bg-white flex items-center justify-between drop-shadow px-4">
@@ -36,7 +80,7 @@ const Navbar = () => {
       />
 
       {/* profile info */}
-      <ProfileInfo onLogout={onLogout} />
+      <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
     </nav>
   );
 };
