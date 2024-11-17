@@ -1,4 +1,6 @@
-import { Edit, Pin, Trash2 } from "lucide-react";
+import React from "react";
+import { BiSolidEdit } from "react-icons/bi";
+import { LuPin, LuTrash2 } from "react-icons/lu";
 import moment from "moment";
 
 const NoteCard = ({ note, onPinNote, onEdit, onDelete }) => {
@@ -6,18 +8,21 @@ const NoteCard = ({ note, onPinNote, onEdit, onDelete }) => {
   const formattedDate = moment(createdAt).format("MMM Do, YYYY");
 
   return (
-    <div className="group bg-white rounded-lg border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 ease-in-out">
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-800 truncate">{title}</h3>
-          <p className="text-xs text-gray-500">{formattedDate}</p>
-        </div>
+    <div
+      onClick={() => onEdit()}
+      className="cursor-pointer group bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col relative"
+    >
+      {/* Date and Pin Button */}
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-xs text-gray-500">{formattedDate}</p>
         <button
-          onClick={onPinNote}
-          title="Pin the note"
+          onClick={(e) => {
+            e.stopPropagation();
+            onPinNote();
+          }}
           className="p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
         >
-          <Pin
+          <LuPin
             className={`w-4 h-4 transform transition-transform ${
               isPinned
                 ? "text-blue-600 rotate-45"
@@ -27,33 +32,51 @@ const NoteCard = ({ note, onPinNote, onEdit, onDelete }) => {
         </button>
       </div>
 
-      <p className="text-sm text-gray-600 mb-4 line-clamp-3">{content}</p>
+      {/* Title */}
+      <h3 className="font-semibold text-gray-800 text-lg mb-2 line-clamp-1">
+        {title}
+      </h3>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tags?.map((tag, index) => (
-          <span
-            key={index}
-            className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
-          >
-            #{tag}
-          </span>
-        ))}
+      {/* Content */}
+      <div className="flex-1 overflow-hidden mb-4">
+        <p className="text-sm text-gray-600 line-clamp-1">{content}</p>
       </div>
 
-      <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      {/* Tags */}
+      <div className="mb-4">
+        <div className="flex flex-wrap gap-2">
+          {tags?.map((tag, index) => (
+            <span
+              key={index}
+              className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="absolute bottom-2 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
         <button
-          onClick={onEdit}
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit();
+          }}
           className="p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
           title="Edit"
         >
-          <Edit className="w-4 h-4" />
+          <BiSolidEdit className="w-4 h-4" />
         </button>
         <button
-          onClick={onDelete}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
           className="p-2 text-gray-600 hover:text-red-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
           title="Delete"
         >
-          <Trash2 className="w-4 h-4" />
+          <LuTrash2 className="w-4 h-4" />
         </button>
       </div>
     </div>

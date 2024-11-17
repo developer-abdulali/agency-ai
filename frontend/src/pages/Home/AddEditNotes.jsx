@@ -1,18 +1,77 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import TagInput from "../../components/Input/TagInput/TagInput";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { backendURL } from "../../utils/constant";
 
-const AddEditNotes = ({ onClose, noteData, type }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tags, setTags] = useState([]);
+const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
   const [error, setError] = useState(null);
 
   // edit note
-  const editNote = async () => {};
+  const editNote = async () => {
+    const noteId = noteData._id;
+
+    try {
+      const res = await axios.put(
+        `${backendURL}/notes/edit/${noteId}`,
+        {
+          title,
+          content,
+          tags,
+        },
+        { withCredentials: true }
+      );
+
+      if (res.data.success === false) {
+        console.log(res.data.message);
+        toast.error(res.data.message);
+        setError(res.data.message);
+        return;
+      }
+
+      toast.success(res.data.message);
+      getAllNotes();
+      onClose();
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+      setError(error.message);
+    }
+  };
 
   // add new note
-  const addNewNote = async () => {};
+  const addNewNote = async () => {
+    try {
+      const res = await axios.post(
+        `${backendURL}/notes/add`,
+        {
+          title,
+          content,
+          tags,
+        },
+        { withCredentials: true }
+      );
+
+      if (res.data.message === false) {
+        console.log(res.data.message);
+        toast.error(res.data.message);
+        setError(res.data.message);
+        return;
+      }
+
+      toast.success(res.data.message);
+      getAllNotes();
+      onClose();
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+      setError(error.message);
+    }
+  };
 
   const handleAddNote = () => {
     if (!title) {
@@ -35,10 +94,10 @@ const AddEditNotes = ({ onClose, noteData, type }) => {
   };
 
   return (
-    <section className="relative">
+    <section className="relative p-4 bg-white rounded-lg shadow-lg">
       <button
         onClick={onClose}
-        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-slate-50"
+        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-10 right-4 bg-slate-50"
       >
         <MdClose className="text-xl text-slate-400" />
       </button>
@@ -50,24 +109,23 @@ const AddEditNotes = ({ onClose, noteData, type }) => {
           placeholder="Wake up at 6 a.m."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-2xl text-slate-950 outline-none"
+          className="text-2xl text-slate-950 outline-none border-b-2 border-gray-300 focus:border-blue-500 p-2"
         />
       </div>
 
       <div className="flex flex-col gap-2 mt-4">
         <label className="input-label text-red-400">Content</label>
         <textarea
-          type="text"
           rows={10}
           placeholder="Content..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded"
+          className="text-sm text-slate-950 outline-none border-2 border-gray-300 focus:border-blue-500 p-2 rounded"
         ></textarea>
       </div>
 
       <div className="mt-3">
-        <label className="input-label text-red-400 uppercase">tags</label>
+        <label className="input-label text-red-400 uppercase">Tags</label>
         <TagInput tags={tags} setTags={setTags} />
       </div>
 
@@ -76,11 +134,12 @@ const AddEditNotes = ({ onClose, noteData, type }) => {
 
       <button
         onClick={handleAddNote}
-        className="btn-primary font-medium mt-5 p-3"
+        className="btn-primary font-medium mt-5 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
       >
-        ADD
+        {type === "edit" ? "Update" : "Add"}
       </button>
     </section>
   );
 };
+
 export default AddEditNotes;

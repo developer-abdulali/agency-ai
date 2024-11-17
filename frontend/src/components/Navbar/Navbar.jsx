@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -9,25 +9,31 @@ import {
 import { Menu, X, Search } from "lucide-react";
 import axios from "axios";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
+import { backendURL } from "../../utils/constant";
 
-const Navbar = ({ userInfo }) => {
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (searchQuery) {
+      onSearchNote(searchQuery);
+    }
+  };
 
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
     setShowSearch(false);
   };
 
   const onLogout = async () => {
     try {
       dispatch(signOutStart());
-      const res = await axios.get("http://localhost:3000/api/auth/signout", {
+      const res = await axios.get(`${backendURL}/auth/signout`, {
         withCredentials: true,
       });
 
@@ -44,15 +50,24 @@ const Navbar = ({ userInfo }) => {
     }
   };
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchQuery) onSearchNote(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white shadow-sm sticky top-0">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-slate-600 to-slate-900 bg-clip-text text-transparent">
-                GoodNotes
+                <span className="text-slate-500">Good</span>
+                <span className="text-slate-900">Notes</span>
               </h2>
             </Link>
           </div>

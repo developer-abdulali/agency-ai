@@ -10,6 +10,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/user/userSlice";
+import { backendURL } from "../../utils/constant";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ const Login = () => {
     try {
       dispatch(signInStart());
       const res = await axios.post(
-        "http://localhost:3000/api/auth/signin",
+        `${backendURL}/auth/signin`,
         { email, password },
         { withCredentials: true }
       );

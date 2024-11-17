@@ -123,3 +123,30 @@ export const updateNotePinned = async (req, res, next) => {
     next(err);
   }
 };
+
+export const searchNote = async (req, res, next) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return next(errorHandler(400, "Search query is required"));
+  }
+  try {
+    const matchingNotes = await Note.find({
+      userId: req.user.id,
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { content: { $regex: query, $options: "i" } },
+        { tags: { $in: query.split(",") } },
+      ],
+    });
+    // .sort({ isPinned: -1 });
+
+    res.status(200).json({
+      success: true,
+      message: "Search results",
+      notes: matchingNotes,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

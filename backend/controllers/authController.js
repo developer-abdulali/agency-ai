@@ -39,9 +39,7 @@ export const signinUser = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return next(errorHandler(401, "Wrong crendentials!"));
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "2h",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     const { password: pass, ...rest } = user._doc;
 
