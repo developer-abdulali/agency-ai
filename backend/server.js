@@ -18,7 +18,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(
-  cors({ origin: ["https://mern-note-app-ui.vercel.app"], credentials: true })
+  cors({
+    origin: ["https://mern-note-app-ui.vercel.app"],
+    credentials: true,
+  })
 );
 
 // api routes
