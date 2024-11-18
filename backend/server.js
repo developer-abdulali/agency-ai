@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["https://mern-note-app-ui.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
