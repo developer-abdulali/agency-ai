@@ -14,8 +14,6 @@ connectDB();
 
 // middleware
 const app = express();
-app.use(express.json());
-app.use(cookieParser());
 
 app.use(
   cors({
@@ -24,6 +22,8 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
 
 // api routes
 app.use("/api/auth", authRoutes);
