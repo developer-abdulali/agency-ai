@@ -10,7 +10,6 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/user/userSlice";
-import { backendURL } from "../../utils/constant";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +39,7 @@ const Login = () => {
     try {
       dispatch(signInStart());
       const res = await axios.post(
-        `${backendURL}/auth/signin`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signin`,
         { email, password },
         { withCredentials: true }
       );

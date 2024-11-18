@@ -9,7 +9,6 @@ import {
 import { Menu, X, Search } from "lucide-react";
 import axios from "axios";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
-import { backendURL } from "../../utils/constant";
 
 const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const dispatch = useDispatch();
@@ -33,9 +32,12 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const onLogout = async () => {
     try {
       dispatch(signOutStart());
-      const res = await axios.get(`${backendURL}/auth/signout`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signout`,
+        {
+          withCredentials: true,
+        }
+      );
 
       if (!res.data.success) {
         dispatch(signOutFailure(res.data.message));

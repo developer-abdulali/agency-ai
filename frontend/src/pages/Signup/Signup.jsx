@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import PasswordInput from "../../components/Input/PasswordInput/PasswordInput";
 import { validateEmail } from "../../utils/helper";
 import { useSelector } from "react-redux";
-import { backendURL } from "../../utils/constant";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -36,7 +35,7 @@ const Signup = () => {
     // Signup API
     try {
       const res = await axios.post(
-        `${backendURL}/auth/signup`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signup`,
         {
           username: name,
           email,

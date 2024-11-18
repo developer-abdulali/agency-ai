@@ -1,5 +1,6 @@
 # Ignore environment files
-.env
+frontend/.env
+backend/.env
 
 # Ignore node_modules in both frontend and backend
 /backend/node_modules/
@@ -11,3 +12,9 @@ Thumbs.db
 
 # Ignore log files
 *.log
+logs
+npm-debug.log
+
+# Build outputs
+frontend/dist/
+backend/dist/

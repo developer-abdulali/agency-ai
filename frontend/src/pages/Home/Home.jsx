@@ -9,7 +9,6 @@ import NoteCard from "../../components/NoteCard/NoteCard";
 import { toast } from "react-toastify";
 import EmptyCard from "../../components/EmptyCard/EmptyCard";
 import Navbar from "../../components/Navbar/Navbar";
-import { backendURL } from "../../utils/constant";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,9 +24,12 @@ const Home = () => {
 
   const getAllNotes = async () => {
     try {
-      const res = await axios.get(`${backendURL}/notes/all`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/all`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success === false) return;
       setAllNotes(res.data.notes);
     } catch (error) {
@@ -42,9 +44,12 @@ const Home = () => {
   const deleteNote = async (note) => {
     const noteId = note._id;
     try {
-      const res = await axios.delete(`${backendURL}/notes/delete/${noteId}`, {
-        withCredentials: true,
-      });
+      const res = await axios.delete(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/delete/${noteId}`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success === false) return;
       toast.success("Note deleted successfully!");
       setAllNotes(allNotes.filter((n) => n._id !== noteId));
@@ -56,10 +61,13 @@ const Home = () => {
 
   const onSearchNote = async (query) => {
     try {
-      const res = await axios.get(`${backendURL}/notes/search`, {
-        params: { query },
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/search`,
+        {
+          params: { query },
+          withCredentials: true,
+        }
+      );
       if (res.data.success === false) {
         console.log(res.data.message);
         toast.error(res.data.message);
@@ -82,12 +90,14 @@ const Home = () => {
     const noteId = noteData?._id;
     try {
       const res = await axios.put(
-        `${backendURL}/notes/update-note-pinned/${noteId}`,
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_URL
+        }/notes/update-note-pinned/${noteId}`,
         { isPinned: !noteData.isPinned },
         { withCredentials: true }
       );
       if (res.data.success === false) return;
-      toast.success("Note pinned/unpinned successfully!");
+      toast.success(res.data.message);
 
       // Update the local state without refetching
       const updatedNotes = allNotes.map((note) =>
