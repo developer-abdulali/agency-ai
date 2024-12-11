@@ -38,7 +38,7 @@ const Signup = () => {
       setLoading(true); // Start loading
 
       const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signup`,
+        `https://mern-note-server-ecru.vercel.app/api/auth/signup`,
         {
           username: name,
           email,

@@ -25,7 +25,7 @@ const Home = () => {
   const getAllNotes = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/all`,
+        `https://mern-note-server-ecru.vercel.app/api/notes/all`,
         {
           withCredentials: true,
         }
@@ -45,7 +45,7 @@ const Home = () => {
     const noteId = note._id;
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/delete/${noteId}`,
+        `https://mern-note-server-ecru.vercel.app/api/notes/delete/${noteId}`,
         {
           withCredentials: true,
         }
@@ -62,7 +62,7 @@ const Home = () => {
   const onSearchNote = async (query) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/search`,
+        `https://mern-note-server-ecru.vercel.app/api/notes/search`,
         {
           params: { query },
           withCredentials: true,

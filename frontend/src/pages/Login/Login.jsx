@@ -39,7 +39,7 @@ const Login = () => {
     try {
       dispatch(signInStart());
       const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signin`,
+        `https://mern-note-server-ecru.vercel.app/api/auth/signin`,
         { email, password },
         { withCredentials: true }
       );

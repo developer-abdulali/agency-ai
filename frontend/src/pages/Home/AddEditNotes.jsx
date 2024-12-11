@@ -16,7 +16,7 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
 
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/edit/${noteId}`,
+        `https://mern-note-server-ecru.vercel.app/api/notes/edit/${noteId}`,
         {
           title,
           content,
@@ -46,7 +46,7 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
   const addNewNote = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/notes/add`,
+        `https://mern-note-server-ecru.vercel.app/api/notes/add`,
         {
           title,
           content,
