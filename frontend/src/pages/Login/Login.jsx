@@ -16,7 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,6 +56,7 @@ const Login = () => {
       dispatch(signInSuccess(res.data));
       navigate("/");
     } catch (error) {
+      console.log("api error", error);
       // Handle error response from Axios
       const errorMessage =
         error.response?.data?.message || "An error occurred during login";
@@ -72,7 +73,7 @@ const Login = () => {
   }, [currentUser, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <section className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-lg px-8 py-10">
         <form onSubmit={handleLogin}>
           <h4 className="text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -107,9 +108,10 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 mt-4 disabled:cursor-not-allowed disabled:bg-gray-300"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <p className="text-center text-sm text-gray-600 mt-4">
@@ -120,7 +122,7 @@ const Login = () => {
           </p>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

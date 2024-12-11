@@ -13,13 +13,7 @@
 }
 
 @layer components {
-  .input-box {
-    @apply w-full text-sm bg-transparent border-[1.5px] px-5 py-3 rounded-md mb-4 outline-none;
-  }
   .btn-primary {
     @apply w-full text-sm bg-[#2B85FF] text-white p-2 rounded my-1 hover:bg-blue-700;
-  }
-  .input-label {
-    @apply text-xs text-slate-400;
   }
 }

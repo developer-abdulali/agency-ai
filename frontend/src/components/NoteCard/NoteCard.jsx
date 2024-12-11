@@ -23,6 +23,7 @@ const NoteCard = ({ note, onPinNote, onEdit, onDelete }) => {
           className="p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
         >
           <LuPin
+            title="Pin the note"
             className={`w-4 h-4 transform transition-transform ${
               isPinned
                 ? "text-blue-600 rotate-45"

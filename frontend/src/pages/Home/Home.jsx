@@ -209,6 +209,7 @@ const Home = () => {
           <h2 className="text-2xl font-bold mb-4">
             {openAddEditModal.type === "add" ? "Add Note" : "Edit Note"}
           </h2>
+
           {/* Add your AddEditNotes component here */}
           <AddEditNotes
             onClose={() =>

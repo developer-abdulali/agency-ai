@@ -17,7 +17,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://mern-note-app-ui.vercel.app", "http://localhost:5173"],
+    origin: [process.env.FRONTEND_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -30,11 +30,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 
 // port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
+
+app.get("/", (req, res) => {
+  res.send("Hi from the MERN Note App backend!");
+});
 
 // app listeners
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 // error handling

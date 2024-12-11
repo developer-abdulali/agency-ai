@@ -11,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -32,8 +33,10 @@ const Signup = () => {
 
     setError("");
 
-    // Signup API
+    // Set loading to true when the signup process begins
     try {
+      setLoading(true); // Start loading
+
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signup`,
         {
@@ -59,6 +62,8 @@ const Signup = () => {
         error.response?.data?.message || "An error occurred during signup";
       setError(errorMessage);
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,9 +127,10 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+            disabled={loading}
           >
-            Signup
+            {loading ? "Registering..." : "Sign Up"}
           </button>
 
           <p className="text-center text-sm text-gray-600 mt-4">

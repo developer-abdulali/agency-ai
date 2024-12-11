@@ -93,16 +93,16 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
   };
 
   return (
-    <section className="relative p-4 bg-white rounded-lg shadow-lg">
+    <section className="relative">
       <button
         onClick={onClose}
-        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-10 right-4 bg-slate-50"
+        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-14 right-0 bg-slate-50"
       >
         <MdClose className="text-xl text-slate-400" />
       </button>
 
       <div className="flex flex-col gap-2">
-        <label className="input-label text-red-400">Title</label>
+        <label className="text-red-400">Title</label>
         <input
           type="text"
           placeholder="Wake up at 6 a.m."
@@ -113,7 +113,7 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
       </div>
 
       <div className="flex flex-col gap-2 mt-4">
-        <label className="input-label text-red-400">Content</label>
+        <label className="text-red-400">Content</label>
         <textarea
           rows={10}
           placeholder="Content..."
@@ -124,12 +124,12 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
       </div>
 
       <div className="mt-3">
-        <label className="input-label text-red-400 uppercase">Tags</label>
+        <label className="text-red-400 uppercase">Tags</label>
         <TagInput tags={tags} setTags={setTags} />
       </div>
 
       {/* show error */}
-      {error && <p className="text-red-500 text-xs pt-4">{error}</p>}
+      {error && <p className="text-red-500 text-sm pt-4">{error}</p>}
 
       <button
         onClick={handleAddNote}
