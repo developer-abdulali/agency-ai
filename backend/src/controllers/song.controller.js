@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Song from "../models/songs.model.js";
 
 // get all songs function
@@ -16,13 +17,18 @@ export const getSongById = async (req, res, next) => {
   try {
     const { songId } = req.params;
 
-    const song = await Song.findById(songId);
+    if (!mongoose.Types.ObjectId.isValid(songId)) {
+      return res.status(400).json({ message: "Invalid song ID" });
+    }
 
-    if (!song) return res.status(404).json({ message: "Song not found" });
+    const song = await Song.findById(songId);
+    if (!song) {
+      return res.status(404).json({ message: "Song not found" });
+    }
 
     res.status(200).json(song);
   } catch (error) {
-    console.log("Error while getting a song", error);
+    console.error("Error while getting a song:", error);
     next(error);
   }
 };
