@@ -18,3 +18,10 @@ export interface IAlbums {
   releaseYear: number;
   songs: ISongs[];
 }
+
+export interface IStats {
+  totalSongs: number;
+  totalAlbums: number;
+  totalUsers: number;
+  totalArtists: number;
+}
