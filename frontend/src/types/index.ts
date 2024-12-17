@@ -25,3 +25,19 @@ export interface IStats {
   totalUsers: number;
   totalArtists: number;
 }
+
+export interface IMessage {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IUsers {
+  _id: string;
+  clerkId: string;
+  fullName: string;
+  imageUrl: string;
+}

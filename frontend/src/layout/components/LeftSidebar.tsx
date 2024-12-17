@@ -9,14 +9,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const LeftSidebar = () => {
-  const { isLoading, songs, albums, fetchAlbums } = useMusicStore();
+  const { isLoading, albums, fetchAlbums } = useMusicStore();
 
   useEffect(() => {
     fetchAlbums();
   }, [fetchAlbums]);
 
   return (
-    <div className="h-full flex flex-col gap-2">
+    <section className="h-full flex flex-col gap-2">
       {/* navigation menu */}
       <div className="rounded-lg bg-zinc-900 p-4">
         <div className="space-y-2">
@@ -88,7 +88,7 @@ const LeftSidebar = () => {
           </div>
         </ScrollArea>
       </div>
-    </div>
+    </section>
   );
 };
 export default LeftSidebar;

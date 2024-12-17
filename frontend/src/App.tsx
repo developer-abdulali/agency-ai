@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
+import { Toaster } from "react-hot-toast";
 import AuthCallbackPage from "./pages/auth-callback/AuthCallbackPage";
 import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
+
+import HomePage from "./pages/home/HomePage";
 import MainLayout from "./layout/MainLayout";
 import ChatPage from "./pages/chat/ChatPage";
 import AlbumPage from "./pages/album/AlbumPage";
 import AdminPage from "./pages/admin/AdminPage";
-import { Toaster } from "react-hot-toast";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/albums/:albumId" element={<AlbumPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>
