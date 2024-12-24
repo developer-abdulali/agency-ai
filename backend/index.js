@@ -27,13 +27,19 @@ initializeSocket(httpServer);
 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://spotifymernapp.netlify.app"
-        : "http://localhost:3000",
-    credentials: true,
+    origin: "*", // Allow all origins
   })
 );
+
+// app.use(
+//   cors({
+//     origin:
+//       process.env.NODE_ENV === "production"
+//         ? "https://spotifymernapp.netlify.app"
+//         : "http://localhost:3000",
+//     credentials: true,
+//   })
+// );
 
 // Middleware
 app.use(express.json());
@@ -72,19 +78,9 @@ app.use((err, req, res, next) => {
     message:
       process.env.NODE_ENV === "production"
         ? "Internal server error"
-        : err.message, // Show error message in development
-    stack: process.env.NODE_ENV === "production" ? undefined : err.stack, // Show stack trace in development
+        : err.message,
   });
 });
-
-// app.use((err, req, res, next) => {
-//   res.status(500).json({
-//     message:
-//       process.env.NODE_ENV === "production"
-//         ? "Internal server error"
-//         : err.message,
-//   });
-// });
 
 // Root Route
 app.get("/", (req, res) => {
