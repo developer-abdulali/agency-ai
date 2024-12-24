@@ -27,7 +27,10 @@ initializeSocket(httpServer);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://<your-vercel-domain>"
+        : "http://localhost:3000",
     credentials: true,
   })
 );
