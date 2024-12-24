@@ -22,7 +22,7 @@ interface IChatStore {
   setSelectedUser: (user: IUsers | null) => void;
 }
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://spotifymernapp.netlify.app/";
 
 const socket = io(baseUrl, {
   autoConnect: false, // only connect is user is authenticated
