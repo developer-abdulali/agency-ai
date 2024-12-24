@@ -27,19 +27,10 @@ initializeSocket(httpServer);
 
 app.use(
   cors({
-    origin: "*", // Allow all origins
+    origin: "https://spotifymernapp.netlify.app/",
+    credentials: true,
   })
 );
-
-// app.use(
-//   cors({
-//     origin:
-//       process.env.NODE_ENV === "production"
-//         ? "https://spotifymernapp.netlify.app"
-//         : "http://localhost:3000",
-//     credentials: true,
-//   })
-// );
 
 // Middleware
 app.use(express.json());
