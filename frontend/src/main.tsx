@@ -14,7 +14,12 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider
+      publishableKey={
+        "pk_test_Y29uY3JldGUtc3BpZGVyLTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
+      }
+      afterSignOutUrl="/"
+    >
       <AuthProvider>
         <BrowserRouter>
           <App />
