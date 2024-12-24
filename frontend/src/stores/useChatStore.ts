@@ -22,7 +22,7 @@ interface IChatStore {
   setSelectedUser: (user: IUsers | null) => void;
 }
 
-const baseUrl = "https://spotifymernapp.netlify.app/";
+const baseUrl = "https://mern-spotify-iota.vercel.app";
 
 const socket = io(baseUrl, {
   autoConnect: false, // only connect is user is authenticated

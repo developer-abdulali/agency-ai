@@ -29,7 +29,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://spotifymernapp.netlify.app/"
+        ? "https://spotifymernapp.netlify.app"
         : "http://localhost:3000",
     credentials: true,
   })
