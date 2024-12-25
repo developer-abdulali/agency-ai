@@ -111,12 +111,20 @@ const port = process.env.PORT || 5000;
 const httpServer = createServer(app);
 initializeSocket(httpServer);
 
-app.use(
-  cors({
-    origin: "https://spotifymernapp.netlify.app/",
-    credentials: true,
-  })
-);
+// CORS Configuration
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow all origins
+    if (origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json());
