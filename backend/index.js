@@ -115,7 +115,7 @@ initializeSocket(httpServer);
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow all origins
-    if (origin) {
+    if (origin || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
