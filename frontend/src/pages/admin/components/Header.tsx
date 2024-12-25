@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="mt-3 flex items-center justify-between">
       <div className="flex items-center gap-3 mb-8">
         <Link to="/" className="rounded-lg">
           <img src="/spotify.png" className="size-10 text-black" />

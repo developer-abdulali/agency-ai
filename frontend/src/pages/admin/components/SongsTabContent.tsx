@@ -8,6 +8,7 @@ import {
 import { Music } from "lucide-react";
 import SongsTable from "./SongsTable";
 import AddSongDialog from "./AddSongDialog";
+import Pagination from "./Pagination";
 
 const SongsTabContent = () => {
   return (
@@ -26,8 +27,10 @@ const SongsTabContent = () => {
       </CardHeader>
       <CardContent>
         <SongsTable />
+        <Pagination />
       </CardContent>
     </Card>
   );
 };
+
 export default SongsTabContent;

@@ -13,7 +13,7 @@ const Topbar = () => {
     <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10">
       <div className="flex items-center gap-2">
         <img src="/spotify.png" alt="spotify logo" className="size-8" />
-        Spotify
+        <span className="hidden sm:block">Spotify</span>
       </div>
       <div className="flex items-center gap-4">
         {isAdmin && (
@@ -21,8 +21,8 @@ const Topbar = () => {
             to={"/admin"}
             className={cn(buttonVariants({ variant: "outline" }))}
           >
-            <LayoutDashboardIcon className="size-4 mr-2" />
-            Admin Dashboard
+            <LayoutDashboardIcon className="size-4 sm:mr-2" />
+            <span className="hidden sm:block">Admin Dashboard</span>
           </Link>
         )}
 

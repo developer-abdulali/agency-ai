@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useMusicStore } from "@/stores/useMusicStore";
-import { Calendar, Trash2 } from "lucide-react";
+import { Calendar, Loader, Trash2 } from "lucide-react";
 
 const SongsTable = () => {
   const { songs, isLoading, error, deleteSong } = useMusicStore();
@@ -16,7 +16,7 @@ const SongsTable = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="text-zinc-400">Loading songs...</div>
+        <Loader className="size-8 text-emerald-500 animate-spin" />
       </div>
     );
   }

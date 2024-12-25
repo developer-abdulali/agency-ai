@@ -4,8 +4,21 @@ import Song from "../models/songs.model.js";
 // get all songs function
 export const getAllSongs = async (req, res, next) => {
   try {
-    const songs = await Song.find().sort({ createdAt: -1 });
-    res.status(200).json(songs);
+    const pageSize = 5;
+    const currentPage = Number(req.query.page) || 1;
+    const totalSongs = await Song.countDocuments(); // Get total number of songs
+    const totalPages = Math.ceil(totalSongs / pageSize);
+
+    const songs = await Song.find({}, null, {
+      skip: (currentPage - 1) * pageSize, // Adjust to use the correct page
+      limit: pageSize,
+    });
+
+    res.status(200).json({
+      songs,
+      totalPages,
+      currentPage,
+    });
   } catch (error) {
     console.log("Error while getting all songs", error);
     next(error);

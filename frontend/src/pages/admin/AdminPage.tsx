@@ -14,14 +14,14 @@ const AdminPage = () => {
 
   useEffect(() => {
     fetchAlbums();
-    fetchSongs();
+    fetchSongs(1);
     fetchStats();
   }, [fetchAlbums, fetchSongs, fetchStats]);
 
   if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900">
+    <div className="px-5 min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900">
       <Header />
 
       <DashboardStats />
