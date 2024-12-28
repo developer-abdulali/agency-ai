@@ -128,7 +128,7 @@ const EditUserDetails = ({ onClose, user }) => {
           </div>
 
           {/* divider */}
-          <div className="p-[0.5px] bg-slate-200 my-1"></div>
+          <div className="p-[0.5px] bg-slate-200 my-1" />
 
           <div className="flex gap-2 w-fit ml-auto ">
             <button

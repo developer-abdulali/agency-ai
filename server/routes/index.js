@@ -6,6 +6,7 @@ const {
   getUserDetail,
   logoutUser,
   updateUserDetail,
+  searchUser,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.post("/password", checkUserPassword);
 router.get("/user-details", getUserDetail);
 router.get("/logout", logoutUser);
 router.post("/update-user", updateUserDetail);
+router.post("/search-user", searchUser);
 
 module.exports = router;

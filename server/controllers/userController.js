@@ -143,46 +143,27 @@ const checkUserPassword = async (req, res) => {
   }
 };
 
-// const checkUserPassword = async (req, res) => {
-//   try {
-//     const { password, userId } = req.body;
+const searchUser = async (req, res) => {
+  try {
+    const { search } = req.body;
+    const query = new RegExp(search, "i", "g");
 
-//     // find the user
-//     const user = await UserModel.findById(userId);
+    const user = await UserModel.find({
+      $or: [{ name: query }, { email: query }],
+    }).select("-password");
 
-//     // verify the user password
-//     const isMatch = await bcryptjs.compare(password, user.password);
-
-//     if (!isMatch) {
-//       return res.status(400).json({
-//         error: true,
-//         message: "Invalid password.",
-//       });
-//     }
-
-//     // create jwt token
-//     const token = jwt.sign(
-//       { id: user._id, email: user.email },
-//       process.env.JWT_SECRET_KEY,
-//       {
-//         expiresIn: "1h",
-//       }
-//     );
-
-//     const cookieOptions = { http: true, secure: true };
-
-//     return res.cookie("token", token, cookieOptions).status(200).json({
-//       message: "Login successfully.",
-//       token: token,
-//       success: true,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       error: true,
-//       message: error.message || "Something went wrong.",
-//     });
-//   }
-// };
+    return res.status(200).json({
+      message: "Users found",
+      data: user,
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: true,
+      message: error.message || "Something went wrong.",
+    });
+  }
+};
 
 const getUserDetail = async (req, res) => {
   try {
@@ -259,4 +240,5 @@ module.exports = {
   getUserDetail,
   logoutUser,
   updateUserDetail,
+  searchUser,
 };

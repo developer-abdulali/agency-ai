@@ -4,8 +4,9 @@ const connectDB = require("./config/db");
 require("dotenv").config();
 const router = require("./routes/index");
 const cookieParser = require("cookie-parser");
+const { app, server } = require("./socket/socket");
 
-const app = express();
+// const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,6 +27,6 @@ app.get("/", (req, res) => {
 app.use("/api", router);
 
 connectDB();
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
