@@ -1,32 +1,32 @@
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./config/db");
-require("dotenv").config();
-const router = require("./routes/index");
-const cookieParser = require("cookie-parser");
-const { app, server } = require("./socket/socket");
+const express = require('express')
+const cors = require('cors')
+require('dotenv').config()
+const connectDB = require('./config/connectDB')
+const router = require('./routes/index')
+const cookiesParser = require('cookie-parser')
+const { app, server } = require('./socket/index')
 
-// const app = express();
+// const app = express()
+app.use(cors({
+    origin : process.env.FRONTEND_URL,
+    credentials : true
+}))
+app.use(express.json())
+app.use(cookiesParser())
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+const PORT = process.env.PORT || 8080
 
-const port = process.env.PORT || 8080;
+app.get('/',(request,response)=>{
+    response.json({
+        message : "Server running at " + PORT
+    })
+})
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+//api endpoints
+app.use('/api',router)
 
-// api routes
-app.use("/api", router);
-
-connectDB();
-server.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+connectDB().then(()=>{
+    server.listen(PORT,()=>{
+        console.log("server running at " + PORT)
+    })
+})

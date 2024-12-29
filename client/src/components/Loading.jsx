@@ -2,7 +2,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="flex justify-center">
+    <section className="flex justify-center">
       <div role="status">
         <svg
           aria-hidden="true"
@@ -22,7 +22,7 @@ const Loading = () => {
         </svg>
         <span class="sr-only">Loading...</span>
       </div>
-    </div>
+    </section>
   );
 };
 
