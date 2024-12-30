@@ -1,8 +1,7 @@
-const crypto = require("crypto");
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import crypto from "crypto";
+import mongoose from "mongoose";
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -46,4 +45,4 @@ userSchema.methods.getResetPasswordToken = function () {
 
 const UserModel = mongoose.model("User", userSchema);
 
-module.exports = UserModel;
+export default UserModel;

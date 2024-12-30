@@ -1,8 +1,8 @@
-const crypto = require("crypto");
-const UserModel = require("../models/UserModel");
-const nodemailer = require("nodemailer");
+import crypto from "crypto";
+import UserModel from "../models/UserModel.js";
+import nodemailer from "nodemailer";
 
-async function forgotPassword(request, response) {
+const forgotPassword = async (request, response) => {
   try {
     const { email } = request.body;
 
@@ -59,6 +59,6 @@ async function forgotPassword(request, response) {
       error: true,
     });
   }
-}
+};
 
-module.exports = forgotPassword;
+export default forgotPassword;

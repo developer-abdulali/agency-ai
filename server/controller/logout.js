@@ -1,4 +1,4 @@
-async function logoutUser(request, response) {
+const logoutUser = async (request, response) => {
   try {
     const cookieOptions = {
       httpOnly: true,
@@ -19,7 +19,6 @@ async function logoutUser(request, response) {
       error: true,
     });
   }
-}
+};
 
-// Properly export the function
-module.exports = logoutUser;
+export default logoutUser;

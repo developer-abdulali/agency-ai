@@ -1,6 +1,6 @@
-const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
+import getUserDetailsFromToken from "../helpers/getUserDetailsFromToken.js";
 
-async function userDetails(request, response) {
+const userDetails = async (request, response) => {
   try {
     const token = request.cookies.token || "";
 
@@ -16,6 +16,6 @@ async function userDetails(request, response) {
       error: true,
     });
   }
-}
+};
 
-module.exports = userDetails;
+export default userDetails;

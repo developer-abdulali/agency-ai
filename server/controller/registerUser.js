@@ -1,7 +1,7 @@
-const UserModel = require("../models/UserModel");
-const bcryptjs = require("bcryptjs");
+import UserModel from "../models/UserModel.js";
+import bcryptjs from "bcryptjs";
 
-async function registerUser(request, response) {
+const registerUser = async (request, response) => {
   try {
     const { name, email, password, profile_pic } = request.body;
 
@@ -39,6 +39,6 @@ async function registerUser(request, response) {
       error: true,
     });
   }
-}
+};
 
-module.exports = registerUser;
+export default registerUser;

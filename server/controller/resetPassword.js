@@ -1,8 +1,8 @@
-const crypto = require("crypto");
-const bcryptjs = require("bcryptjs");
-const UserModel = require("../models/UserModel");
+import crypto from "crypto";
+import bcryptjs from "bcryptjs";
+import UserModel from "../models/UserModel.js";
 
-async function resetPassword(request, response) {
+const resetPassword = async (request, response) => {
   try {
     const { token } = request.params;
     const { password } = request.body;
@@ -42,6 +42,6 @@ async function resetPassword(request, response) {
       error: true,
     });
   }
-}
+};
 
-module.exports = resetPassword;
+export default resetPassword;

@@ -1,7 +1,7 @@
-const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
-const UserModel = require("../models/UserModel");
+import getUserDetailsFromToken from "../helpers/getUserDetailsFromToken.js";
+import UserModel from "../models/UserModel.js";
 
-async function updateUserDetails(request, response) {
+const updateUserDetails = async (request, response) => {
   try {
     const token = request.cookies.token || "";
 
@@ -30,6 +30,6 @@ async function updateUserDetails(request, response) {
       error: true,
     });
   }
-}
+};
 
-module.exports = updateUserDetails;
+export default updateUserDetails;

@@ -1,13 +1,13 @@
-const express = require("express");
-const { Server } = require("socket.io");
-const http = require("http");
-const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
-const UserModel = require("../models/UserModel");
-const {
+import express from "express";
+import { Server } from "socket.io";
+import http from "http";
+import getUserDetailsFromToken from "../helpers/getUserDetailsFromToken.js";
+import UserModel from "../models/UserModel.js";
+import {
   ConversationModel,
   MessageModel,
-} = require("../models/ConversationModel");
-const getConversation = require("../helpers/getConversation");
+} from "../models/ConversationModel.js";
+import getConversation from "../helpers/getConversation.js";
 
 const app = express();
 
@@ -161,7 +161,4 @@ io.on("connection", async (socket) => {
   });
 });
 
-module.exports = {
-  app,
-  server,
-};
+export { app, server };

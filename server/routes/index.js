@@ -1,13 +1,13 @@
-const express = require("express");
-const registerUser = require("../controller/registerUser");
-const checkEmail = require("../controller/checkEmail");
-const checkPassword = require("../controller/checkPassword");
-const userDetails = require("../controller/userDetails");
-const updateUserDetails = require("../controller/updateUserDetails");
-const searchUser = require("../controller/searchUser");
-const forgotPassword = require("../controller/forgotPassword");
-const resetPassword = require("../controller/resetPassword");
-const logoutUser = require("../controller/logout");
+import express from "express";
+import registerUser from "../controller/registerUser.js";
+import checkEmail from "../controller/checkEmail.js";
+import checkPassword from "../controller/checkPassword.js";
+import userDetails from "../controller/userDetails.js";
+import updateUserDetails from "../controller/updateUserDetails.js";
+import searchUser from "../controller/searchUser.js";
+import forgotPassword from "../controller/forgotPassword.js";
+import resetPassword from "../controller/resetPassword.js";
+import logoutUser from "../controller/logout.js";
 
 const router = express.Router();
 
@@ -30,4 +30,4 @@ router.post("/forgot-password", forgotPassword);
 //reset password by token
 router.post("/reset-password/:token", resetPassword);
 
-module.exports = router;
+export default router;
