@@ -4,7 +4,7 @@ require("dotenv").config();
 const connectDB = require("./config/connectDB");
 const router = require("./routes/index");
 const cookiesParser = require("cookie-parser");
-const { app, server } = require("./socket/socket");
+const { app, server } = require("./socket/index");
 
 app.use(
   cors({
