@@ -11,6 +11,7 @@ import SearchUser from "./SearchUser";
 import { FaImage } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa6";
 import { logout } from "../redux/userSlice";
+import axios from "axios";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
@@ -28,8 +29,6 @@ const Sidebar = () => {
       socketConnection.emit("sidebar", user._id);
 
       socketConnection.on("conversation", (data) => {
-        console.log("conversation", data);
-
         const conversationUserData = data.map((conversationUser, index) => {
           if (
             conversationUser?.sender?._id === conversationUser?.receiver?._id
@@ -56,10 +55,29 @@ const Sidebar = () => {
     }
   }, [socketConnection, user]);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/email");
-    localStorage.clear();
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+      );
+      if (response?.data?.success) {
+        localStorage.removeItem("token");
+
+        document.cookie =
+          "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+        dispatch(logout());
+
+        navigate("/email");
+      } else {
+        console.error(
+          "Logout failed: ",
+          response?.data?.message || "Unknown error"
+        );
+      }
+    } catch (error) {
+      console.error("Logout failed: ", error.message);
+    }
   };
 
   return (
@@ -116,7 +134,7 @@ const Sidebar = () => {
         <div className="h-16 flex items-center">
           <h2 className="text-xl font-bold p-4 text-slate-800">Message</h2>
         </div>
-        <div className="bg-slate-200 p-[0.5px]"></div>
+        <div className="bg-slate-200 p-[0.5px]" />
 
         <div className=" h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
           {allUser.length === 0 && (

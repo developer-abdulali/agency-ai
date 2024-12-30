@@ -8,6 +8,7 @@ import { setToken } from "../redux/userSlice";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const CheckPasswordPage = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     password: "",
     userId: "",
@@ -35,6 +36,7 @@ const CheckPasswordPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setLoading(true);
 
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/password`;
 
@@ -59,6 +61,8 @@ const CheckPasswordPage = () => {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,9 +108,10 @@ const CheckPasswordPage = () => {
 
         <button
           type="submit"
-          className="bg-primary text-lg px-4 py-2 hover:bg-secondary rounded mt-4 font-bold text-white leading-relaxed tracking-wide"
+          disabled={loading}
+          className="bg-primary text-lg px-4 py-2 hover:bg-secondary rounded mt-4 font-semibold text-white leading-relaxed tracking-wide disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 

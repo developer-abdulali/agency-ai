@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -11,36 +10,38 @@ import {
 import Sidebar from "../components/Sidebar";
 import logo from "../assets/logo.png";
 import io from "socket.io-client";
+import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fetchUserDetails = async () => {
-    try {
-      const URL = `${process.env.REACT_APP_BACKEND_URL}/api/user-details`;
-      const response = await axios({
-        url: URL,
-        withCredentials: true,
-      });
-
-      dispatch(setUser(response.data.data));
-
-      if (response.data.data.logout) {
-        dispatch(logout());
-        navigate("/email");
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const URL = `${process.env.REACT_APP_BACKEND_URL}/api/user-details`;
+        const response = await axios({
+          url: URL,
+          withCredentials: true,
+        });
+
+        if (response.data.data.logout) {
+          dispatch(logout());
+          localStorage.removeItem("token");
+          navigate("/email");
+          return;
+        }
+
+        dispatch(setUser(response.data.data));
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
     fetchUserDetails();
   }, [dispatch, navigate]);
 
-  /***socket connection */
   useEffect(() => {
     const socketConnection = io(process.env.REACT_APP_BACKEND_URL, {
       auth: {
@@ -49,7 +50,6 @@ const Home = () => {
     });
 
     socketConnection.on("onlineUser", (data) => {
-      console.log(data);
       dispatch(setOnlineUser(data));
     });
 
@@ -67,7 +67,6 @@ const Home = () => {
         <Sidebar />
       </section>
 
-      {/**message component**/}
       <section className={`${basePath && "hidden"}`}>
         <Outlet />
       </section>

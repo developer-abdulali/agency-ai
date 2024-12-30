@@ -1,27 +1,48 @@
-const mongoose = require('mongoose')
+const crypto = require("crypto");
+const mongoose = require("mongoose");
 
-const userSchema =  new mongoose.Schema({
-    name : {
-        type : String,
-        required : [true, "provide name"]
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required!"],
     },
-    email : {
-        type : String,
-        required : [true,"provide email"],
-        unique : true
+    email: {
+      type: String,
+      required: [true, "Email is required!"],
+      unique: true,
     },
-    password : {
-        type : String,
-        required : [true, "provide password"]
+    password: {
+      type: String,
+      required: [true, "Password is required!"],
     },
-    profile_pic : {
-        type : String,
-        default : ""
-    }
-},{
-    timestamps : true
-})
+    profile_pic: {
+      type: String,
+      default: "",
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const UserModel = mongoose.model('User',userSchema)
+userSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
 
-module.exports = UserModel
+  // Hash the token and set it to the resetPasswordToken field
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // Set expiration time (e.g., 5 minutes)
+  this.resetPasswordExpire = Date.now() + 5 * 60 * 1000;
+
+  return resetToken;
+};
+
+const UserModel = mongoose.model("User", userSchema);
+
+module.exports = UserModel;

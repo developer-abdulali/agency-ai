@@ -109,7 +109,6 @@ const MessagePage = () => {
       });
 
       socketConnection.on("message", (data) => {
-        console.log("message data", data);
         setAllMessage(data);
       });
     }
@@ -205,6 +204,7 @@ const MessagePage = () => {
                   {msg?.imageUrl && (
                     <img
                       src={msg?.imageUrl}
+                      alt="User uploaded content"
                       className="w-full h-full object-scale-down"
                     />
                   )}
