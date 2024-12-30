@@ -1,21 +1,38 @@
+// const mongoose = require("mongoose");
+
+// async function connectDB() {
+//   try {
+//     await mongoose.connect(process.env.MONGODB_URI);
+
+//     const connection = mongoose.connection;
+
+//     connection.on("connected", () => {
+//       console.log("Connect to DB");
+//     });
+
+//     connection.on("error", (error) => {
+//       console.log("Something is wrong in mongodb ", error);
+//     });
+//   } catch (error) {
+//     console.log("Something is wrong ", error);
+//   }
+// }
+
+// module.exports = connectDB;
+
 const mongoose = require("mongoose");
 
-async function connectDB() {
+const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
-
-    const connection = mongoose.connection;
-
-    connection.on("connected", () => {
-      console.log("Connect to DB");
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
-
-    connection.on("error", (error) => {
-      console.log("Something is wrong in mongodb ", error);
-    });
+    console.log("MongoDB connected");
   } catch (error) {
-    console.log("Something is wrong ", error);
+    console.error("Error connecting to MongoDB:", error.message);
+    process.exit(1);
   }
-}
+};
 
 module.exports = connectDB;
