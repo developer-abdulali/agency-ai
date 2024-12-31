@@ -44,6 +44,8 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 
+const PORT = process.env.PORT || 8080;
+
 // Middleware setup
 app.use(
   cors({
@@ -74,7 +76,6 @@ app.get("/", (request, response) => {
 });
 
 // Connect to the database and start the server
-const PORT = process.env.PORT || 8080;
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log("Server running at " + PORT);

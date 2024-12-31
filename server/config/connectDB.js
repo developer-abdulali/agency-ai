@@ -1,6 +1,6 @@
-// const mongoose = require("mongoose");
+// import mongoose from "mongoose";
 
-// async function connectDB() {
+// const connectDB = async () => {
 //   try {
 //     await mongoose.connect(process.env.MONGODB_URI);
 
@@ -16,9 +16,10 @@
 //   } catch (error) {
 //     console.log("Something is wrong ", error);
 //   }
-// }
+// };
 
-// module.exports = connectDB;
+// export default connectDB;
+
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
@@ -29,11 +30,10 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB connected");
+    console.log("Connected to DB");
   } catch (error) {
-    console.error("Error connecting to MongoDB:", error.message);
-    process.exit(1);
+    console.log("Error connecting to MongoDB: ", error);
+    process.exit(1); // Exit the process if DB connection fails
   }
 };
-
 export default connectDB;
