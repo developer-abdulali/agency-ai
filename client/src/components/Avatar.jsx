@@ -22,7 +22,7 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
   const isOnline = onlineUser?.includes(userId);
   return (
     <section
-      className={`text-slate-800  rounded-full font-bold relative`}
+      className={`text-slate-800 rounded-full font-bold relative`}
       style={{ width: width + "px", height: height + "px" }}
     >
       {imageUrl ? (

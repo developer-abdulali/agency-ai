@@ -127,8 +127,6 @@ const MessagePage = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
 
-    if (!message.text) toast.error("Can't send message empty message");
-
     if (message.text || message.imageUrl || message.videoUrl) {
       if (socketConnection) {
         socketConnection.emit("new message", {

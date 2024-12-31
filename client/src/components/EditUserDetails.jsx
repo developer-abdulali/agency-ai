@@ -2,15 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import Avatar from "./Avatar";
 import uploadFile from "../helpers/uploadFile";
 import axios from "axios";
-import taost from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
 
 const EditUserDetails = ({ onClose, user }) => {
   const [data, setData] = useState({
+    userId: user?._id,
     name: user?.user,
+    email: user?.email,
     profile_pic: user?.profile_pic,
   });
+
   const uploadPhotoRef = useRef();
   const dispatch = useDispatch();
 
@@ -40,6 +43,7 @@ const EditUserDetails = ({ onClose, user }) => {
 
     uploadPhotoRef.current.click();
   };
+
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
 
@@ -55,28 +59,25 @@ const EditUserDetails = ({ onClose, user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
+
+    const { userId, name, email, profile_pic } = data;
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`;
+
     try {
-      const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`;
+      const res = await axios.post(URL, { userId, name, email, profile_pic });
+      console.log(res);
 
-      const response = await axios({
-        method: "post",
-        url: URL,
-        data: data,
-        withCredentials: true,
-      });
-
-      taost.success(response?.data?.message);
-
-      if (response.data.success) {
-        dispatch(setUser(response.data.data));
+      if (res?.data?.success) {
+        toast.success("Profile updated successfully.");
+        dispatch(setUser(res?.data?.data));
         onClose();
       }
     } catch (error) {
-      console.log(error);
-      taost.error();
+      toast.error("An error occurred while updating your profile.");
+      console.error("Error updating user:", error);
     }
   };
+
   return (
     <section className="fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-40 flex justify-center items-center z-10">
       <div className="bg-white p-4 py-6 m-1 rounded w-full max-w-sm">
@@ -92,7 +93,19 @@ const EditUserDetails = ({ onClose, user }) => {
               id="name"
               value={data.name}
               onChange={handleOnChange}
-              className="w-full py-1 px-2 focus:outline-primary border-0.5"
+              className="w-full py-1 px-2 focus:outline-primary border border-primary rounded"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="name">Email:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={data.email}
+              onChange={handleOnChange}
+              className="w-full py-1 px-2 focus:outline-primary border border-primary rounded"
             />
           </div>
 
@@ -134,7 +147,7 @@ const EditUserDetails = ({ onClose, user }) => {
               Cancel
             </button>
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="border-primary bg-primary text-white border px-4 py-1 rounded hover:bg-secondary"
             >
               Save
