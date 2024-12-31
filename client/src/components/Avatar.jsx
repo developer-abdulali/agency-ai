@@ -19,21 +19,7 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
     }
   }
 
-  const bgColor = [
-    "bg-slate-200",
-    "bg-teal-200",
-    "bg-red-200",
-    "bg-green-200",
-    "bg-yellow-200",
-    "bg-gray-200",
-    "bg-cyan-200",
-    "bg-sky-200",
-    "bg-blue-200",
-  ];
-
-  const randomNumber = Math.floor(Math.random() * 9);
-
-  const isOnline = onlineUser.includes(userId);
+  const isOnline = onlineUser?.includes(userId);
   return (
     <section
       className={`text-slate-800  rounded-full font-bold relative`}
@@ -50,7 +36,7 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
       ) : name ? (
         <div
           style={{ width: width + "px", height: height + "px" }}
-          className={`overflow-hidden rounded-full flex justify-center items-center text-lg ${bgColor[randomNumber]}`}
+          className="overflow-hidden rounded-full flex justify-center items-center text-lg bg-teal-200"
         >
           {avatarName}
         </div>
@@ -59,7 +45,7 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
       )}
 
       {isOnline && (
-        <div className="bg-green-600 p-1 absolute bottom-2 -right-1 z-10 rounded-full"></div>
+        <div className="bg-green-600 p-1 absolute bottom-1 -right-[2px] z-10 rounded-full" />
       )}
     </section>
   );

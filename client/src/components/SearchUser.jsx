@@ -60,9 +60,9 @@ const SearchUser = ({ onClose }) => {
             </p>
           )}
 
-          {searchUser.length !== 0 &&
+          {searchUser?.length !== 0 &&
             !loading &&
-            searchUser.map((user, index) => {
+            searchUser?.map((user) => {
               return (
                 <UserSearchCard key={user._id} user={user} onClose={onClose} />
               );

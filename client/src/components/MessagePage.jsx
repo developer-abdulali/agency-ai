@@ -13,6 +13,7 @@ import Loading from "./Loading";
 import backgroundImage from "../assets/wallapaper.jpeg";
 import { IoMdSend } from "react-icons/io";
 import moment from "moment";
+import { toast } from "react-hot-toast";
 
 const MessagePage = () => {
   const params = useParams();
@@ -35,6 +36,7 @@ const MessagePage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [allMessage, setAllMessage] = useState([]);
+
   const currentMessage = useRef(null);
 
   useEffect(() => {
@@ -65,13 +67,18 @@ const MessagePage = () => {
       };
     });
   };
-  const handleClearUploadImage = () => {
-    setMessage((preve) => {
-      return {
-        ...preve,
+  const clearUploadedImgVideo = (type) => {
+    if (type === "image") {
+      setMessage((prev) => ({
+        ...prev,
         imageUrl: "",
-      };
-    });
+      }));
+    } else if (type === "video") {
+      setMessage((prev) => ({
+        ...prev,
+        videoUrl: "",
+      }));
+    }
   };
 
   const handleUploadVideo = async (e) => {
@@ -82,18 +89,10 @@ const MessagePage = () => {
     setLoading(false);
     setOpenImageVideoUpload(false);
 
-    setMessage((preve) => {
+    setMessage((prev) => {
       return {
-        ...preve,
-        videoUrl: uploadPhoto.url,
-      };
-    });
-  };
-  const handleClearUploadVideo = () => {
-    setMessage((preve) => {
-      return {
-        ...preve,
-        videoUrl: "",
+        ...prev,
+        videoUrl: uploadPhoto?.url,
       };
     });
   };
@@ -128,16 +127,19 @@ const MessagePage = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
 
+    if (!message.text) toast.error("Can't send message empty message");
+
     if (message.text || message.imageUrl || message.videoUrl) {
       if (socketConnection) {
         socketConnection.emit("new message", {
           sender: user?._id,
-          receiver: params.userId,
+          receiver: params?.userId,
           text: message.text,
-          imageUrl: message.imageUrl,
-          videoUrl: message.videoUrl,
+          imageUrl: message?.imageUrl,
+          videoUrl: message?.videoUrl,
           msgByUserId: user?._id,
         });
+        // reset
         setMessage({
           text: "",
           imageUrl: "",
@@ -187,14 +189,14 @@ const MessagePage = () => {
         </div>
       </header>
 
-      {/***show all message */}
+      {/*** show all message */}
       <section className="h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll scrollbar relative bg-slate-200 bg-opacity-50">
-        {/**all message show here */}
+        {/** all message show here */}
         <div className="flex flex-col gap-2 py-2 mx-2" ref={currentMessage}>
           {allMessage?.map((msg, index) => {
             return (
               <div
-                className={` p-1 py-1 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${
+                className={`p-1 py-1 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${
                   user?._id === msg?.msgByUserId
                     ? "ml-auto bg-teal-100"
                     : "bg-white"
@@ -230,7 +232,7 @@ const MessagePage = () => {
           <div className="w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div
               className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
-              onClick={handleClearUploadImage}
+              onClick={() => clearUploadedImgVideo("image")}
             >
               <IoClose size={30} />
             </div>
@@ -249,7 +251,7 @@ const MessagePage = () => {
           <div className="w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div
               className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
-              onClick={handleClearUploadVideo}
+              onClick={() => clearUploadedImgVideo("video")}
             >
               <IoClose size={30} />
             </div>
@@ -316,7 +318,6 @@ const MessagePage = () => {
                 <input
                   type="file"
                   id="uploadVideo"
-                  accept="video/*"
                   onChange={handleUploadVideo}
                   className="hidden"
                 />

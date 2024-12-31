@@ -137,7 +137,7 @@ const Sidebar = () => {
         <div className="bg-slate-200 p-[0.5px]" />
 
         <div className=" h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
-          {allUser.length === 0 && (
+          {allUser?.length === 0 && (
             <div className="mt-12">
               <div className="flex justify-center items-center my-4 text-slate-500">
                 <FiArrowUpLeft size={50} />
@@ -148,7 +148,7 @@ const Sidebar = () => {
             </div>
           )}
 
-          {allUser.map((conv, index) => {
+          {allUser?.map((conv) => {
             return (
               <NavLink
                 to={"/" + conv?.userDetails?._id}
@@ -159,6 +159,7 @@ const Sidebar = () => {
                   <Avatar
                     imageUrl={conv?.userDetails?.profile_pic}
                     name={conv?.userDetails?.name}
+                    userId={conv?.userDetails?._id}
                     width={40}
                     height={40}
                   />

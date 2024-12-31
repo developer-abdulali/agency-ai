@@ -1,8 +1,16 @@
 import React from "react";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const UserSearchCard = ({ user, onClose }) => {
+  const currentUser = useSelector((state) => state.user);
+  const isCurrentUser = user?._id === currentUser?._id;
+
+  if (isCurrentUser) {
+    return null;
+  }
+
   return (
     <Link
       to={"/" + user?._id}
