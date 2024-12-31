@@ -40,7 +40,7 @@ const ResetPassword = () => {
       const response = await axios.post(URL, { token, password });
 
       toast.success(response.data.message || "Password reset successfully!");
-      setTimeout(() => navigate("/email"), 3000);
+      setTimeout(() => navigate("/email"), 2000);
     } catch (error) {
       // Handle errors
       const errorMsg =
