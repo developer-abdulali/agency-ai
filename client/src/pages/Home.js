@@ -35,6 +35,7 @@ const Home = () => {
 
         dispatch(setUser(response.data.data));
       } catch (error) {
+        console.error("Fetch user details error:", error);
         console.log("error", error);
       }
     };
