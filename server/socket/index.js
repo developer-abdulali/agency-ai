@@ -18,8 +18,10 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST"],
     credentials: true,
   },
+  transports: ["websocket", "polling"],
 });
 
 //online user
@@ -29,6 +31,11 @@ io.on("connection", async (socket) => {
   console.log("connect User ", socket.id);
 
   const token = socket.handshake.auth.token;
+
+  if (!token) {
+    console.error("Missing token for socket connection");
+    return socket.disconnect();
+  }
 
   //current user details
   const user = await getUserDetailsFromToken(token);
@@ -163,11 +170,6 @@ io.on("connection", async (socket) => {
     }
     console.log("disconnect user ", socket.id);
   });
-
-  // socket.on("disconnect", () => {
-  //   onlineUser.delete(user?._id?.toString());
-  //   console.log("disconnect user ", socket.id);
-  // });
 });
 
 export { app, server };
