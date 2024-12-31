@@ -8,15 +8,16 @@ import {
   MessageModel,
 } from "../models/ConversationModel.js";
 import getConversation from "../helpers/getConversation.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
-/***socket connection */
+/*** socket connection */
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST"],
     credentials: true,
   },
 });
@@ -85,9 +86,9 @@ io.on("connection", async (socket) => {
     }
 
     const message = new MessageModel({
-      text: data.text,
-      imageUrl: data.imageUrl,
-      videoUrl: data.videoUrl,
+      text: data?.text,
+      imageUrl: data?.imageUrl,
+      videoUrl: data?.videoUrl,
       msgByUserId: data?.msgByUserId,
     });
     const saveMessage = await message.save();

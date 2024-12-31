@@ -100,7 +100,7 @@ const MessagePage = () => {
 
   useEffect(() => {
     if (socketConnection) {
-      socketConnection.emit("message-page", params.userId);
+      socketConnection.emit("message-page", params?.userId);
 
       socketConnection.emit("seen", params.userId);
 
@@ -191,11 +191,11 @@ const MessagePage = () => {
       <section className="h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll scrollbar relative bg-slate-200 bg-opacity-50">
         {/**all message show here */}
         <div className="flex flex-col gap-2 py-2 mx-2" ref={currentMessage}>
-          {allMessage.map((msg, index) => {
+          {allMessage?.map((msg, index) => {
             return (
               <div
                 className={` p-1 py-1 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${
-                  user._id === msg?.msgByUserId
+                  user?._id === msg?.msgByUserId
                     ? "ml-auto bg-teal-100"
                     : "bg-white"
                 }`}
@@ -210,23 +210,23 @@ const MessagePage = () => {
                   )}
                   {msg?.videoUrl && (
                     <video
-                      src={msg.videoUrl}
+                      src={msg?.videoUrl}
                       className="w-full h-full object-scale-down"
                       controls
                     />
                   )}
                 </div>
-                <p className="px-2">{msg.text}</p>
+                <p className="px-2">{msg?.text}</p>
                 <p className="text-xs ml-auto w-fit">
-                  {moment(msg.createdAt).format("hh:mm")}
+                  {moment(msg?.createdAt).format("hh:mm")}
                 </p>
               </div>
             );
           })}
         </div>
 
-        {/**upload Image display */}
-        {message.imageUrl && (
+        {/** upload Image display */}
+        {message?.imageUrl && (
           <div className="w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div
               className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
@@ -236,7 +236,7 @@ const MessagePage = () => {
             </div>
             <div className="bg-white p-3">
               <img
-                src={message.imageUrl}
+                src={message?.imageUrl}
                 alt="uploadImage"
                 className="aspect-square w-full h-full max-w-sm m-2 object-scale-down"
               />
@@ -244,8 +244,8 @@ const MessagePage = () => {
           </div>
         )}
 
-        {/**upload video display */}
-        {message.videoUrl && (
+        {/** upload video display */}
+        {message?.videoUrl && (
           <div className="w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div
               className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
@@ -255,7 +255,7 @@ const MessagePage = () => {
             </div>
             <div className="bg-white p-3">
               <video
-                src={message.videoUrl}
+                src={message?.videoUrl}
                 className="aspect-square w-full h-full max-w-sm m-2 object-scale-down"
                 controls
                 muted
@@ -308,6 +308,7 @@ const MessagePage = () => {
                 <input
                   type="file"
                   id="uploadImage"
+                  accept="image/*"
                   onChange={handleUploadImage}
                   className="hidden"
                 />
@@ -315,6 +316,7 @@ const MessagePage = () => {
                 <input
                   type="file"
                   id="uploadVideo"
+                  accept="video/*"
                   onChange={handleUploadVideo}
                   className="hidden"
                 />
