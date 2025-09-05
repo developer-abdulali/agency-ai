@@ -1,7 +1,9 @@
-import { SignedIn, SignedOut, useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import { Navigate, Route, Routes } from "react-router";
-import Home from "./pages/Home";
+
 import Auth from "./pages/Auth";
+import Call from "./pages/Call";
+import Home from "./pages/Home";
 
 const App = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -19,10 +21,10 @@ const App = () => {
         element={!isSignedIn ? <Auth /> : <Navigate to={"/"} replace />}
       />
 
-      {/* <Route
+      <Route
         path="/call/:id"
-        element={isSignedIn ? <CallPage /> : <Navigate to={"/auth"} replace />}
-      /> */}
+        element={isSignedIn ? <Call /> : <Navigate to={"/auth"} replace />}
+      />
 
       <Route
         path="*"
