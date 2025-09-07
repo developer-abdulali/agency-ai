@@ -37,42 +37,7 @@ const App = () => {
         }
       />
     </Routes>
-
-    // <>
-    //   <SignedIn>
-    //     <Routes>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/auth" element={<Navigate to="/" replace />} />
-    //     </Routes>
-    //   </SignedIn>
-
-    //   <SignedOut>
-    //     <Routes>
-    //       <Route path="/auth" element={<Auth />} />
-    //       <Route path="*" element={<Navigate to="/auth" replace />} />
-    //     </Routes>
-    //   </SignedOut>
-    // </>
   );
 };
 
 export default App;
-
-// first version of routing:
-// return (
-//   <>
-//     <SignedIn>
-//       <SentryRoutes>
-//         <Route path="/" element={<HomePage />} />
-//         <Route path="/auth" element={<Navigate to={"/"} replace />} />
-//       </SentryRoutes>
-//     </SignedIn>
-
-//     <SignedOut>
-//       <SentryRoutes>
-//         <Route path="/auth" element={<AuthPage />} />
-//         <Route path="*" element={<Navigate to={"/auth"} replace />} />
-//       </SentryRoutes>
-//     </SignedOut>
-//   </>
-// );

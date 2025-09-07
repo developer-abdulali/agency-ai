@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
 
@@ -27,6 +27,8 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { chatClient, error, isLoading } = useStreamChat();
 
+  const navigate = useNavigate();
+
   // set active channel from url params
   useEffect(() => {
     if (chatClient) {
@@ -42,7 +44,7 @@ const Home = () => {
   if (isLoading || !chatClient) return <PageLoader />;
 
   return (
-    <div className="chat-wrapper">
+    <div className="chat-wrapper select-none">
       <Chat client={chatClient}>
         <div className="chat-container">
           {/* left side */}
@@ -50,7 +52,7 @@ const Home = () => {
             <div className="team-channel-list">
               {/* header */}
               <div className="team-channel-list__header gap-4">
-                <div className="brand-container">
+                <div onClick={() => navigate("/")} className="brand-container">
                   <img src="/logo.png" alt="Logo" className="brand-logo" />
                   <span className="brand-name">Slack</span>
                 </div>
@@ -126,8 +128,8 @@ const Home = () => {
             <Channel channel={activeChannel}>
               <Window>
                 <CustomChannelHeader />
-                {/* <MessageList /> */}
-                {/* <MessageInput /> */}
+                <MessageList />
+                <MessageInput />
               </Window>
 
               <Thread />

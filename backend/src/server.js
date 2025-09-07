@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(clerkMiddleware());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 const PORT = process.env.PORT || 5001;
 const ENV = process.env.NODE_ENV;

@@ -3,7 +3,7 @@ import { SignInButton } from "@clerk/clerk-react";
 
 const Auth = () => {
   return (
-    <div className="auth-container">
+    <div className="auth-container select-none">
       <div className="auth-left">
         <div className="auth-hero">
           <div className="brand-container">
