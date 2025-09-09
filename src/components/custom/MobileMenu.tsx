@@ -1,13 +1,12 @@
-import type { MenuItem } from '@/types';
-import React from 'react';
-import { Button } from '../ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { Separator } from '@/components/ui/separator';
+import type { MenuItem } from '@/types';
 import { ChevronsUpDown } from 'lucide-react';
+import { Button } from '../ui/button';
 
 type MobileMenuProps = {
   navMenu: MenuItem[];

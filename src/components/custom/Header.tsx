@@ -7,19 +7,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import MobileMenu from './MobileMenu';
 import { navMenu } from '@/constants';
+import MobileMenu from './MobileMenu';
 
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 
 const Header = () => {
